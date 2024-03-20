@@ -11,6 +11,18 @@ import community_domain from '@/assets/community/community_domain.png'
 import community_code from '@/assets/community/community_code.png'
 import community_backstage from '@/assets/community/community_backstage.png'
 import community_introduce from '@/assets/community/community_introduce.png'
+import { ref } from 'vue'
+
+const infoRef = ref({
+  username: '池鱼思故渊', //网名
+  profession: '新时代农民工', //职业
+  qq: '202653352', //联系QQ
+  mail: '202653352@qq.com', //联系邮箱
+  http: 'www.loong777.com', // 网站域名
+  onlineTime: '' // 上线时间
+})
+
+
 </script>
 
 <template>
@@ -31,19 +43,19 @@ import community_introduce from '@/assets/community/community_introduce.png'
         <div class="business-card">
           <div class="item">
             <div class="title">网名 <img :src="community_user_name" alt=""></div>
-            <div class="text">daixu</div>
+            <div class="text">{{ infoRef.username }}</div>
           </div>
           <div class="item">
             <div class="title">职业 <img :src="community_profession" alt=""></div>
-            <div class="text">daixu</div>
+            <div class="text">{{ infoRef.profession }}</div>
           </div>
           <div class="item">
             <div class="title">联系QQ <img :src="community_qq" alt=""></div>
-            <div class="text">daixu</div>
+            <div class="text">{{ infoRef.qq }}</div>
           </div>
           <div class="item">
             <div class="title">联系邮箱 <img :src="community_mail" alt=""></div>
-            <div class="text">daixu</div>
+            <div class="text">{{ infoRef.mail }}</div>
           </div>
         </div>
       </div>
@@ -59,12 +71,12 @@ import community_introduce from '@/assets/community/community_introduce.png'
           <div class="a1-item">
             <img :src="community_domain" alt="">
             <div class="title">网站域名</div>
-            <div class="text">daixu.cn</div>
+            <div class="text">{{ infoRef.http }}</div>
           </div>
           <div class="a1-item">
             <img :src="community_time" alt="">
             <div class="title">上线时间</div>
-            <div class="text">2021/02/05</div>
+            <div class="text">{{ infoRef.onlineTime }}</div>
           </div>
 
         </div>
@@ -73,14 +85,14 @@ import community_introduce from '@/assets/community/community_introduce.png'
             <img :src="community_code" alt="">
             <div class="a2-item-right">
               <div class="title">静态页面</div>
-              <div class="text">Vite4 + Vue3 + Element-Plus + Media Queriew</div>
+              <div class="text">Vite4 + Vue3 + Element-Plus</div>
             </div>
           </div>
           <div class="a2-item">
             <img :src="community_backstage" alt="">
             <div class="a2-item-right">
               <div class="title">后台系统</div>
-              <div class="text">Koa2 + Sequelize + Redis</div>
+              <div class="text">RuiYi+Springboot+Mybatis+Mybatis-plus+Shiro+Thymeleaf+Redis</div>
             </div>
           </div>
           <div class="a2-item">
@@ -88,7 +100,8 @@ import community_introduce from '@/assets/community/community_introduce.png'
             <div class="a2-item-right">
               <div class="title">网站介绍</div>
               <div class="text">本站搭建主要目的于IT技术交流，日常生活记录。本站支持QQ、
-                GitHub、Google进行快速登录。</div>
+                GitHub、Google进行快速登录。
+              </div>
             </div>
           </div>
 
@@ -325,7 +338,8 @@ import community_introduce from '@/assets/community/community_introduce.png'
 
         .a2-item-right {
           margin-left: 20px;
-          .title{
+
+          .title {
             margin-bottom: 5px;
           }
 

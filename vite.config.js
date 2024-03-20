@@ -34,13 +34,14 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
+  },
+  server:{
     proxy: {
       '/api': {
         target: 'http://49.235.133.154',	// 实际请求地址
         changeOrigin: true, // 是否跨域
-        rewrite: (path) => path.replace(/^\/api/, '') // 对什么类的服务器匹配
       }
     },
-
   }
+
 })

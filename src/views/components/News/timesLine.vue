@@ -1,25 +1,16 @@
 <!--时间线-->
 <script setup>
-
+import {defineProps} from 'vue'
+const { data } = defineProps({data:Array})
 </script>
 
 <template>
   <ul class="time-line">
-    <li class="item item-right">
+    <li v-for="(item,index) in data" :key="item.id"  :class="[index % 2 === 0 ? 'item-left' : 'item-right', 'item']">
       <div class="line"></div>
-      <div class="time">2024-01-22</div>
-      <div class="text">
-        一、修复登录提示显示错误 <br /> 二、根据视频类型自动检测播放 <br />三、新增文章推送选项
-      </div>
+      <div class="time">{{item.releaseTime}}</div>
+      <div class="text" v-html="item.content"></div>
     </li>
-    <li class="item item-left">
-      <div class="line"></div>
-      <div class="time">2024-01-22</div>
-      <div class="text">
-        一、修复登录提示显示错误 <br /> 二、根据视频类型自动检测播放 <br />三、新增文章推送选项
-      </div>
-    </li>
-
   </ul>
 </template>
 

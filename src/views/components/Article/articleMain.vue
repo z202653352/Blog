@@ -3,58 +3,105 @@
 
 import { Waterfall } from 'vue-waterfall-plugin-next'
 import WaterfallItem from '@/views/components/ArticleView/waterfallItem.vue'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import {
+  articleListHttp,
+  articleNumHttp,
+  commentNumHttp,
+  labelNumHttp,
+  myInfoHttp,
+  blogInfoHttp
+} from '@/serves/article.js'
+import { encapsulationRes } from '@/utils/utils.js'
+import { ElMessage } from 'element-plus'
 
-const list = ref([
-  { src: '12333', url: '', index: 0, text: '123' },
-  { src: '12333', url: '', index: 2, text: '123' },
-  { src: '12333', url: '', index: 3, text: '123' },
-  { src: '12333', url: '', index: 4, text: '123' },
-  { src: '12333', url: '', index: 5, text: '123' },
-  { src: '12333', url: '', index: 6, text: '123' },
-  { src: '12333', url: '', index: 7, text: '123' },
-  { src: '12333', url: '', index: 8, text: '123' },
-  { src: '12333', url: '', index: 98, text: '123' },
-  { src: '12333', url: '', index: 123, text: '123' }
-])
-
-const breakpoints = ref({
+const listRef = ref([])
+const myInfoRef = ref({})
+const breakpointsRef = ref({
 
   720: {
     // when wrapper width < 720
     rowPerView: 1
   }
 })
+const articleNumRef = ref('')
+const commentNumRef = ref('')
+const labelNumRef = ref('')
+const blogInfoRef = ref({})
+
+onMounted(() => {
+  requestList()
+  requestMyInfo()
+  requestStatistics()
+  requestBlogInfo()
+})
+
+const requestList = async () => {
+  const { code, data } = await articleListHttp({ start: 1, num: 99999 })
+  if (code === '200' && data?.length > 0) {
+    listRef.value = data
+  }
+}
+
+// 请求个人信息
+const requestMyInfo = async () => {
+  try {
+    const data = encapsulationRes(await myInfoHttp({ token: 'efce3da4-4bd5-40b9-9cc9-23ef9740ea59' }))
+    myInfoRef.value = data
+  } catch (e) {
+    ElMessage.error(e)
+  }
+}
+
+// 请求博客信息
+const requestBlogInfo = async () => {
+  try {
+    const data = encapsulationRes(await blogInfoHttp())
+    blogInfoRef.value = data
+  } catch (e) {
+    ElMessage.error(e)
+  }
+}
+
+const requestStatistics = async () => {
+  try {
+    articleNumRef.value = encapsulationRes(await articleNumHttp())
+    commentNumRef.value = encapsulationRes(await commentNumHttp())
+    labelNumRef.value = encapsulationRes(await labelNumHttp())
+  } catch (e) {
+    ElMessage.error(e)
+  }
+}
 </script>
 
 <template>
   <main class="article-main">
     <div class="waterfall">
-      <Waterfall :list="list" rowKey="index" :width="484" align="left" :breakpoints="breakpoints"
+      <Waterfall :list="listRef" rowKey="articeId" :width="484" align="left" :breakpoints="breakpointsRef"
                  :hasAroundGutter="false" :gutter="30">
-        <template #item="{ item, url, index }">
-          <waterfall-item />
+        <template #item="{ item }">
+          <waterfall-item :item="item" />
         </template>
       </Waterfall>
     </div>
     <div class="author-info">
       <div class="author">
         <div class="bg"></div>
-        <img src="https://www.logosc.cn/uploads/resources/2024/01/09/1704783215_thumb.png" alt="" class="avatar">
-        <div class="name">Kardashianicon</div>
-        <div class="motto">有幸遇见，恰巧合拍</div>
+        <img :src="myInfoRef.profile" alt="" class="avatar">
+        <div :class="name">{{ myInfoRef.username }}</div>
+        <div class="motto">{{myInfoRef.motto}}</div>
         <div class="line"></div>
         <div class="data">
           <div class="item">
-            <div class="num">19</div>
+            <div class="num">{{ articleNumRef }}</div>
             <div class="title">文章</div>
           </div>
           <div class="item">
-            <div class="num">50</div>
+            <div class="num">{{ commentNumRef }}</div>
             <div class="title">评论</div>
           </div>
           <div class="item">
-            <div class="num">3</div>
+            <div class="num">{{ labelNumRef }}</div>
             <div class="title">标签</div>
           </div>
         </div>
@@ -63,19 +110,19 @@ const breakpoints = ref({
         <ul>
           <li>
             <span class="directory">已运行时间</span>
-            <span class="sum">838天</span>
+            <span class="sum">{{blogInfoRef.runDate}}天</span>
           </li>
           <li>
             <span class="directory">本站总字数</span>
-            <span class="sum">216.7K</span>
+            <span class="sum">{{blogInfoRef.charNum}}k</span>
           </li>
           <li>
             <span class="directory">本站访客数</span>
-            <span class="sum">8,121</span>
+            <span class="sum">{{blogInfoRef.visitNum}}</span>
           </li>
           <li>
             <span class="directory">本站总访问量</span>
-            <span class="sum">154,121</span>
+            <span class="sum">{{blogInfoRef.sumBrowse}}</span>
           </li>
         </ul>
       </div>

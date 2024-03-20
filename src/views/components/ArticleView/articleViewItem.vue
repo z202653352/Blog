@@ -2,31 +2,56 @@
 <script setup>
 import view_img from '@/assets/view.png'
 import commentaries_img from '@/assets/commentaries.png'
+import { onMounted, ref } from 'vue'
+import { articleTopHttp } from '@/serves/article.js'
+import { encapsulationRes } from '@/utils/utils.js'
+import { ElMessage } from 'element-plus'
+import { useRouter } from 'vue-router'
+
+const info = ref({})
+const router = useRouter()
+
+onMounted(() => {
+  requestArticleTop()
+})
+
+const requestArticleTop = async () => {
+  try {
+    const data = encapsulationRes(await articleTopHttp())
+    info.value = data[0]
+    console.log('data', data)
+  } catch (e) {
+    ElMessage.error(e)
+  }
+
+}
+
+const handleToDetails = () => {
+  router.push({ path: '/details/' + info.value.articeId })
+}
 </script>
 
 <template>
-  <div class="article-view-item">
+  <div class="article-view-item" @click="handleToDetails">
     <div class="left">
-      <img src="https://www.logosc.cn/uploads/resources/2024/01/09/1704783215_thumb.png" alt="">
+      <img :src="info.previewPicture" alt="">
     </div>
     <div class="right">
       <div class="top">置顶</div>
-      <div class="title">川流SaaS – Coupang免费轻量ERP上线，Coupang卖家可以免费用啦！</div>
+      <div class="title">{{ info.title }}</div>
       <div class="label">
-        <div class="type">实验探索</div>
-        <div class="time">2024-01-03 03:23</div>
+        <div class="type">{{ info.label }}</div>
+        <div class="time">{{ info.createdTime }}</div>
       </div>
-      <div class="text">Coupang是韩国第一大跨境电商平台，目前入驻的中国卖家很少，因此，竞争不激烈，相对利润也比较高！同时，由于韩国很近，
-        并不需要像亚马逊一样提前把产品备货到韩国。而是出单之后从中国发货，两天就能到达韩国了！这就极大的降低了中国卖家的风险！
-      </div>
+      <div class="text">{{ info.description }}</div>
       <div class="user">
         <div class="admin">
-          <img class="avatar" src="https://www.logosc.cn/uploads/resources/2024/01/09/1704783215_thumb.png" alt="">
-          <span class="name">Andy Liu</span>
+          <img class="avatar" :src="info.authorProfile" alt="">
+          <span class="name">{{ info.authorName }}</span>
         </div>
         <div class="view">
-          <img :src="view_img" alt=""><span>1W+</span>
-          <img :src="commentaries_img" alt=""><span>1542</span>
+          <img :src="view_img" alt=""><span>{{ info.views || 0 }}</span>
+          <img :src="commentaries_img" alt=""><span>{{ info.commentNum || 0 }}</span>
         </div>
       </div>
     </div>

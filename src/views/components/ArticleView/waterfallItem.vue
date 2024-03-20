@@ -1,35 +1,47 @@
 <!--瀑布流文章-->
 <script setup>
+import { defineProps, computed } from 'vue'
 import view_img from '@/assets/view.png'
 import commentaries_img from '@/assets/commentaries.png'
+import { useRouter } from 'vue-router'
+
+const { item } = defineProps({ item: Object })
+const router = useRouter()
+
+const times = computed(() => {
+  if (item.createdTime?.length > 0) return item.createdTime.split('-')
+  return []
+})
+
+const handleToDetails = () => {
+  router.push({ path: '/details/' + item.articeId })
+}
 </script>
 
 <template>
-  <div class="waterfall-item">
-    <img class="img" src="https://www.logosc.cn/uploads/resources/2024/01/09/1704783215_thumb.png" alt="">
+  <div class="waterfall-item" @click="handleToDetails">
+    <img class="img" :src="item.previewPicture" alt="">
     <div class="main">
       <div class="left">
-        <span class="month">12</span>
+        <span class="month">{{ times[1] || '' }}</span>
         <div class="line"></div>
-        <div class="day">18</div>
+        <div class="day">{{ times[2] || '' }}</div>
       </div>
       <div class="right">
-        <div class="title">川流SaaS – Coupang免费轻量ERP上线，Coupang卖家可以免费用啦！</div>
+        <div class="title">{{ item.title }}</div>
         <div class="label">
-          <div class="type">实验探索</div>
-          <div class="time">2024-01-03 03:23</div>
+          <div class="type">{{ item.label }}</div>
+          <div class="time">{{ item.createdTime }}</div>
         </div>
-        <div class="text">Coupang是韩国第一大跨境电商平台，目前入驻的中国卖家很少，因此，竞争不激烈，相对利润也比较高！同时，由于韩国很近，
-          并不需要像亚马逊一样提前把产品备货到韩国。而是出单之后从中国发货，两天就能到达韩国了！这就极大的降低了中国卖家的风险！
-        </div>
+        <div class="text">{{ item.description || '' }}</div>
         <div class="user">
           <div class="admin">
-            <img class="avatar" src="https://www.logosc.cn/uploads/resources/2024/01/09/1704783215_thumb.png" alt="">
-            <span class="name">Andy Liu</span>
+            <img class="avatar" :src="item.authorProfile" alt="">
+            <span class="name">{{ item.authorName }}</span>
           </div>
           <div class="view">
-            <img :src="view_img" alt=""><span>1W+</span>
-            <img :src="commentaries_img" alt=""><span>1542</span>
+            <img :src="view_img" alt=""><span>{{ item.views || '0' }}</span>
+            <img :src="commentaries_img" alt=""><span>{{ item.commentNum || '0' }}</span>
           </div>
         </div>
       </div>
@@ -42,7 +54,10 @@ import commentaries_img from '@/assets/commentaries.png'
   width: 100%;
 
   .img {
-    width:100%;
+    width: 100%;
+    max-width: 484px;
+    max-height: 356px;
+    object-fit: cover;
     border-radius: 20px 20px 0px 0px;
   }
 
@@ -91,6 +106,7 @@ import commentaries_img from '@/assets/commentaries.png'
 
     .right {
       width: 100%;
+
       .title {
         font-family: Microsoft YaHei, Microsoft YaHei;
         font-weight: bold;
@@ -187,6 +203,7 @@ import commentaries_img from '@/assets/commentaries.png'
       }
     }
   }
+
   @media screen and (max-width: 720px) {
     padding: 0 10px;
     box-sizing: border-box;

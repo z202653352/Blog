@@ -16,11 +16,18 @@ const router = createRouter({
       component: () => import('../views/Article/list.vue')
     },
     {
+      path: '/details/:id',
+      name: 'Details',
+      meta: { title: '详情' },
+      component: () => import('../views/Article/details.vue')
+    },
+    {
       path: '/archive',
       name: 'Archive',
       meta: { title: '文章归档',type:'menu' },
       component: () => import('../views/Archive/archive.vue')
     },
+
     {
       path: '/community',
       name: 'Community',

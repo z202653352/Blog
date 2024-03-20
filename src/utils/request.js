@@ -1,8 +1,8 @@
 import axios from 'axios' // 引入
 import { ElMessage } from 'element-plus'
-import { getToken } from '@/utils/token'
+// import { getToken } from '@/utils/token'
 
-// let baseURL = 'http://v.juhe.cn'
+let baseURL = '/api'
 
 // 这一步的目的是判断出当前是开发环境还是生成环境，方法不止一种，达到目的就行
 // if(process.env.NODE_ENV=='development'){
@@ -55,7 +55,7 @@ export const showMessage = (status) => {
 }
 
 const config = {
-  // baseURL: baseURL,
+  baseURL: baseURL,
   // 因为跨域了，所以这里如果写的话会自动拼接，会有两份，所以隐藏了
   timeout: 30000 // 设置最大请求时间
 }
@@ -73,7 +73,6 @@ _axios.interceptors.request.use(
 
 // /* 请求之后的操作 */
 _axios.interceptors.response.use((res) => {
-    console.log(res)
     // 在这里关闭请求时的loading动画效果
     // 这里用于处理返回的结果，比如如果是返回401无权限，可能会是跳回到登录页的操作，结合自己的业务逻辑写
     // 一定结合自己的后端的返回代码进行操作
@@ -95,16 +94,17 @@ _axios.interceptors.response.use((res) => {
 )
 
 // 封装post,get,delete,put方法
-const http = ({ method, url, data }) => {
+const http = ({ url, method, ...params }) => {
   const opitons = {
     method, url,
+    ...params,
     headers: { 'Content-Type': 'application/jsoncharset=UTF-8' }
   }
-  if (method === 'GET' || method === 'DELETE') {
-    opitons.params = data
-  } else {
-    opitons.data = data
-  }
+  // if (method === 'GET' || method === 'DELETE') {
+  //   opitons.params = data
+  // }else {
+  //   opitons.data = data
+  // }
   return new Promise((resolve, reject) => {
     _axios({
       ...opitons
