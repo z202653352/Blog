@@ -3,7 +3,7 @@
 import view_img from '@/assets/view.png'
 import commentaries_img from '@/assets/commentaries.png'
 import { onMounted, ref } from 'vue'
-import { articleTopHttp } from '@/serves/article.js'
+import { articleTopHttp } from '@/serves'
 import { encapsulationRes } from '@/utils/utils.js'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'

@@ -2,14 +2,14 @@
 <script setup>
 
 import TimesLine from '@/views/components/News/timesLine.vue'
-import { ref,onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { encapsulationRes } from '@/utils/utils.js'
 import { ElMessage } from 'element-plus'
-import { trendsListHttp } from '@/serves/news.js'
+import { trendsListHttp } from '@/serves'
 
 const dataRef = ref([])
 
-onMounted(()=>{
+onMounted(() => {
   requestTrendsList()
 })
 
@@ -25,9 +25,7 @@ const requestTrendsList = async () => {
 </script>
 
 <template>
-  <times-line :data="dataRef"/>
+  <times-line :data="dataRef" />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

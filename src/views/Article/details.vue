@@ -2,7 +2,7 @@
 import commentaries from '@/assets/commentaries.png'
 import view from '@/assets/view.png'
 import { onMounted, ref, reactive } from 'vue'
-import { articleDetailHttp } from '@/serves/article.js'
+import { articleDetailHttp } from '@/serves'
 import { useRoute } from 'vue-router'
 import Catalog from '@/views/components/Catalog/catalog.vue'
 

@@ -1,8 +1,5 @@
 <!--首页文章主体内容（瀑布流+作者详情）-->
 <script setup>
-
-import { Waterfall } from 'vue-waterfall-plugin-next'
-import WaterfallItem from '@/views/components/ArticleView/waterfallItem.vue'
 import { ref, onMounted } from 'vue'
 import {
   articleListHttp,
@@ -11,19 +8,14 @@ import {
   labelNumHttp,
   myInfoHttp,
   blogInfoHttp
-} from '@/serves/article.js'
+} from '@/serves'
 import { encapsulationRes } from '@/utils/utils.js'
 import { ElMessage } from 'element-plus'
+import Waterfall from '../../components/Waterfall/waterfall.vue';
 
 const listRef = ref([])
 const myInfoRef = ref({})
-const breakpointsRef = ref({
 
-  720: {
-    // when wrapper width < 720
-    rowPerView: 1
-  }
-})
 const articleNumRef = ref('')
 const commentNumRef = ref('')
 const labelNumRef = ref('')
@@ -77,19 +69,14 @@ const requestStatistics = async () => {
 <template>
   <main class="article-main">
     <div class="waterfall">
-      <Waterfall :list="listRef" rowKey="articeId" :width="484" align="left" :breakpoints="breakpointsRef"
-                 :hasAroundGutter="false" :gutter="30">
-        <template #item="{ item }">
-          <waterfall-item :item="item" />
-        </template>
-      </Waterfall>
+      <Waterfall :list="listRef" />
     </div>
     <div class="author-info">
       <div class="author">
         <div class="bg"></div>
         <img :src="myInfoRef.profile" alt="" class="avatar">
         <div :class="name">{{ myInfoRef.username }}</div>
-        <div class="motto">{{myInfoRef.motto}}</div>
+        <div class="motto">{{ myInfoRef.motto }}</div>
         <div class="line"></div>
         <div class="data">
           <div class="item">
@@ -110,19 +97,19 @@ const requestStatistics = async () => {
         <ul>
           <li>
             <span class="directory">已运行时间</span>
-            <span class="sum">{{blogInfoRef.runDate}}天</span>
+            <span class="sum">{{ blogInfoRef.runDate }}天</span>
           </li>
           <li>
             <span class="directory">本站总字数</span>
-            <span class="sum">{{blogInfoRef.charNum}}k</span>
+            <span class="sum">{{ blogInfoRef.charNum }}k</span>
           </li>
           <li>
             <span class="directory">本站访客数</span>
-            <span class="sum">{{blogInfoRef.visitNum}}</span>
+            <span class="sum">{{ blogInfoRef.visitNum }}</span>
           </li>
           <li>
             <span class="directory">本站总访问量</span>
-            <span class="sum">{{blogInfoRef.sumBrowse}}</span>
+            <span class="sum">{{ blogInfoRef.sumBrowse }}</span>
           </li>
         </ul>
       </div>
@@ -138,6 +125,12 @@ const requestStatistics = async () => {
   .waterfall {
     height: 100%;
     width: 80%;
+  }
+
+  @media screen and (max-width: 720px) {
+    .waterfall {
+      width: 100%;
+    }
   }
 
   .author-info {
@@ -270,9 +263,8 @@ const requestStatistics = async () => {
   }
 
   @media screen and (max-width: 720px) {
-    .waterfall {
-      width: 100%;
-    }
+
+
     .author-info {
       display: none;
     }

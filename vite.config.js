@@ -35,7 +35,7 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
-  server:{
+  server: {
     proxy: {
       '/api': {
         target: 'http://49.235.133.154',	// 实际请求地址
