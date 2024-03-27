@@ -121,7 +121,7 @@ const handleToDetails = () => {
       .label {
         display: flex;
         align-items: center;
-        margin-bottom: 16px;
+        margin: 16px 0;
 
         .type {
           padding: 1px 6px;
