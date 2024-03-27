@@ -7,7 +7,7 @@ import CreativityCard from '@/views/components/Creativity/creativityCard.vue'
 <template>
   <main class="creativity">
     <el-space wrap :size="40">
-      <creativity-card v-for="item in [1,2,3,4,5,6]" :key="item" />
+      <!-- <creativity-card :key="item" /> -->
     </el-space>
   </main>
 </template>
@@ -17,11 +17,11 @@ import CreativityCard from '@/views/components/Creativity/creativityCard.vue'
   :deep(.el-space) {
     //justify-content: space-between;
   }
+
   @media screen and (max-width: 720px) {
     :deep(.el-space) {
-      justify-content:center;
+      justify-content: center;
     }
   }
 }
-
 </style>

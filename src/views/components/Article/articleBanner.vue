@@ -8,12 +8,14 @@
     <div class="title">最新 <span class="symbol">“</span><span class="blog">博客</span><span class="symbol">”</span>即时获取
     </div>
     <div class="subheading">实时掌握各行业最新资讯！</div>
+
   </div>
 </template>
 
 <style scoped lang="scss">
 .article-banner {
   text-align: center;
+
   .title {
     font-size: 56px;
     color: $text-color;
@@ -56,6 +58,7 @@
 
   @media screen and (max-width: 720px) {
     margin-top: 0px;
+
     .title {
       font-size: 20px;
 
@@ -67,6 +70,7 @@
         font-size: 28px;
       }
     }
+
     .subheading {
       font-size: 12px;
     }

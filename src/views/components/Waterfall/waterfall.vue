@@ -12,6 +12,7 @@ const { list } = defineProps({
   }
 })
 
+
 const breakpointsRef = ref({
 
   720: {

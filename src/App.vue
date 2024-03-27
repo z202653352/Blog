@@ -7,7 +7,7 @@ import Hander from '@/components/Hander/Hander.vue'
 <template>
   <div class="bg"></div>
   <div class="main">
-    <Hander class="hander"/>
+    <Hander class="hander" />
     <RouterView />
   </div>
 </template>
@@ -26,8 +26,8 @@ import Hander from '@/components/Hander/Hander.vue'
   max-width: 80%;
   margin: 0 auto;
 
-  .hander{
-    margin-bottom: 70px;
+  .hander {
+    margin-bottom: 40px;
   }
 
 

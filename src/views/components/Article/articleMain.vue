@@ -75,7 +75,7 @@ const requestStatistics = async () => {
       <div class="author">
         <div class="bg"></div>
         <img :src="myInfoRef.profile" alt="" class="avatar">
-        <div :class="name">{{ myInfoRef.username }}</div>
+        <div class="name">{{ myInfoRef.username }}</div>
         <div class="motto">{{ myInfoRef.motto }}</div>
         <div class="line"></div>
         <div class="data">
@@ -148,8 +148,9 @@ const requestStatistics = async () => {
 
       .bg {
         width: 100%;
-        height: 211px;
-        background-color: #028AF1;
+        height: 197px;
+        background: url('../../../assets/user_bg.png') no-repeat;
+        background-size: contain;
         border-radius: 20px 20px 20px 20px;
       }
 
@@ -157,6 +158,7 @@ const requestStatistics = async () => {
         width: 101px;
         height: 101px;
         background: #C4C4C4;
+        object-fit: cover;
         border-radius: 50%;
         transform: translateY(-28px);
       }

@@ -12,7 +12,7 @@ const search = ref('')
 <template>
   <ul class="mobile-menu">
     <menu-item />
-    <li class="search-user">
+    <!-- <li class="search-user">
       <el-input
         v-model="search"
         placeholder="Please Input"
@@ -20,7 +20,7 @@ const search = ref('')
       />
       <el-button round>注册</el-button>
       <el-button type="primary" round>登录</el-button>
-    </li>
+    </li> -->
   </ul>
 </template>
 
@@ -37,12 +37,12 @@ const search = ref('')
       margin-right: 12px;
     }
   }
+
   @media screen and (max-width: 1000px) {
-    .search-user{
+    .search-user {
       display: none;
     }
 
   }
 }
-
 </style>

@@ -15,34 +15,41 @@ import PcMenu from '@/components/Hander/pcMenu.vue'
       <!--PC显示的菜单-->
       <pc-menu class="pcMenu" />
       <!--手机显示的菜单-->
-      <mobile-menu class="mobileMenu"/>
+      <mobile-menu class="mobileMenu" />
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-
 .header {
 
   width: 100%;
-  padding: 20px 0;
+  padding: 10px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  .logo {
+    img {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+    }
+  }
+
   .right {
-   @media screen and (max-width: 720px) {
-     .pcMenu{
-       display: none;
-     }
-     .mobileMenu{
-
-     }
-   }
-    @media screen and (min-width: 720px) {
-      .pcMenu{
-
+    @media screen and (max-width: 720px) {
+      .pcMenu {
+        display: none;
       }
-      .mobileMenu{
+
+      .mobileMenu {}
+    }
+
+    @media screen and (min-width: 720px) {
+      .pcMenu {}
+
+      .mobileMenu {
         display: none;
       }
     }

@@ -8,6 +8,9 @@ import router from './router'
 
 import './styles/global.scss' // 全局样式
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+//引入Elmessage和Elloading的css样式文件
+import 'element-plus/theme-chalk/el-loading.css';
+import 'element-plus/theme-chalk/el-message.css';
 
 // 预览组件以及样式
 import VMdPreview from '@kangc/v-md-editor/lib/preview';
