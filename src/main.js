@@ -2,7 +2,7 @@
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import App from './App.vue'
 import router from './router'
 
@@ -28,14 +28,19 @@ VMdPreview.use(vuepressTheme, {
   Prism,
 });
 
+// 评论
+import UndrawUi from 'undraw-ui'
+import 'undraw-ui/dist/style.css'
+
 const app = createApp(App)
 
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 
-app.use(createPinia())
+app.use(createPinia().use(piniaPluginPersistedstate))
 app.use(router)
 // 引入v-md-editor预览组件
 app.use(VMdPreview);
+app.use(UndrawUi)
 app.mount('#app')

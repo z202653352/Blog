@@ -40,6 +40,13 @@ export default defineConfig({
       '/api': {
         target: 'http://47.102.86.92:7777/',	// 实际请求地址
         changeOrigin: true, // 是否跨域
+      },
+      '/api2': {
+        target: 'http://pv.sohu.com/',	// 实际请求地址
+        changeOrigin: true, // 是否跨域
+        pathRewrite: {
+          '^/api2': '',
+        },
       }
     },
   }

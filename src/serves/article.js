@@ -23,4 +23,14 @@ export const labelNumHttp = params => http({ url: '/article/labelNum', method: '
 export const blogInfoHttp = params => http({ url: '/other/blogInfo', method: 'GET', params: params })
 
 // 文章详情
-export const articleDetailHttp = params => http({url: '/article/articleDetail', method: 'POST', params: params })
+export const articleDetailHttp = params => http({ url: '/article/articleDetail', method: 'POST', params: params })
+
+// 评论列表
+export const commentListHttp = params => http({ url: '/comment/selCommentList', method: 'POST', params: params })
+
+// 添加评论
+export const addCommentHttp = params => http({ url: '/comment/addComment', method: 'POST', params: params })
+
+// 删除评论
+export const delCommentHttp = params => http({ url: '/comment/delComment', method: 'POST', params: params })
+

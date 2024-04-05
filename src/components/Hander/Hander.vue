@@ -31,7 +31,7 @@ import PcMenu from '@/components/Hander/pcMenu.vue'
 
   .logo {
     img {
-      width: 70px;
+      width: 130px;
       height: 70px;
       object-fit: contain;
     }

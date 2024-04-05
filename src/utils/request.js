@@ -1,9 +1,9 @@
 import axios from 'axios' // 引入
 import { ElMessage } from 'element-plus'
-// import { getToken } from '@/utils/token'
+import { getAccountInfo } from '@/utils/authority'
 
 let baseURL = '/api'
-
+// let { token } = getAccountInfo()
 // 这一步的目的是判断出当前是开发环境还是生成环境，方法不止一种，达到目的就行
 // if(process.env.NODE_ENV=='development'){
 //   baseURL=''
@@ -73,14 +73,14 @@ _axios.interceptors.request.use(
 
 // /* 请求之后的操作 */
 _axios.interceptors.response.use((res) => {
-    // 在这里关闭请求时的loading动画效果
-    // 这里用于处理返回的结果，比如如果是返回401无权限，可能会是跳回到登录页的操作，结合自己的业务逻辑写
-    // 一定结合自己的后端的返回代码进行操作
-    // if (res.data.code === 401) {
-    //   console.log('无权限操作')
-    // }
-    return res
-  },
+  // 在这里关闭请求时的loading动画效果
+  // 这里用于处理返回的结果，比如如果是返回401无权限，可能会是跳回到登录页的操作，结合自己的业务逻辑写
+  // 一定结合自己的后端的返回代码进行操作
+  // if (res.data.code === 401) {
+  //   console.log('无权限操作')
+  // }
+  return res
+},
   err => {
     const { response } = err
     if (err) {
@@ -98,7 +98,10 @@ const http = ({ url, method, ...params }) => {
   const opitons = {
     method, url,
     ...params,
-    headers: { 'Content-Type': 'application/jsoncharset=UTF-8' }
+    headers: {
+      'Content-Type': 'application/jsoncharset=UTF-8',
+      // 'Authorization': 'Bearer ' + token
+    }
   }
   // if (method === 'GET' || method === 'DELETE') {
   //   opitons.params = data

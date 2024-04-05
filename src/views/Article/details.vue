@@ -5,7 +5,7 @@ import { onMounted, ref, reactive } from 'vue'
 import { articleDetailHttp } from '@/serves'
 import { useRoute } from 'vue-router'
 import Catalog from '@/views/components/Catalog/catalog.vue'
-
+import Comment from '@/views/components/Article/comment.vue';
 
 const route = useRoute()
 
@@ -37,37 +37,41 @@ const requestList = async () => {
 </script>
 
 <template>
-  <main class="details">
-    <div class="main">
-      <h1>{{ detailsDataRef.title }}</h1>
-      <el-divider />
-      <div class="info">
-        <div class="user">
-          <el-avatar :size="50" :src="detailsDataRef.authorProfile" />
-          <div class="name_time">
-            <div class="name">{{ detailsDataRef.authorName }}</div>
-            <div class="time">{{ detailsDataRef.createdTime }}</div>
+  <main>
+    <div class="details">
+      <div class="main">
+        <h1>{{ detailsDataRef.title }}</h1>
+        <el-divider />
+        <div class="info">
+          <div class="user">
+            <el-avatar :size="50" :src="detailsDataRef.authorProfile" />
+            <div class="name_time">
+              <div class="name">{{ detailsDataRef.authorName }}</div>
+              <div class="time">{{ detailsDataRef.createdTime }}</div>
+            </div>
+          </div>
+          <div class="statistics">
+            <img :src="commentaries" alt="" />
+            <span>{{ detailsDataRef.commentNum }}</span>
+            <img :src="view" alt="" />
+            <span>{{ detailsDataRef.views }}</span>
           </div>
         </div>
-        <div class="statistics">
-          <img :src="commentaries" alt="" />
-          <span>{{ detailsDataRef.commentNum }}</span>
-          <img :src="view" alt="" />
-          <span>{{ detailsDataRef.views }}</span>
+        <el-divider />
+        <div>
+          <!--detailsDataRef.content-->
+          <v-md-preview :text="detailsDataRef.content" :default-show-toc="true"></v-md-preview>
+
         </div>
       </div>
-      <el-divider />
-      <div>
-        <!--detailsDataRef.content-->
-        <v-md-preview :text="detailsDataRef.content" :default-show-toc="true"></v-md-preview>
-
-      </div>
-    </div>
-    <!-- preview-only-preview -->
-    <div class="directory">
+      <!-- preview-only-preview -->
+      <!-- <div class="directory">
       <Catalog container=".vuepress-markdown-body" />
 
+    </div> -->
     </div>
+    <el-divider />
+    <Comment :articleId="route.params.id" />
   </main>
 </template>
 
