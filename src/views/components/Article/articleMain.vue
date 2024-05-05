@@ -2,18 +2,17 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import {
-  articleListHttp,
   articleNumHttp,
   commentNumHttp,
   labelNumHttp,
   myInfoHttp,
-  blogInfoHttp
+  blogInfoHttp,
+  articleListHttp
 } from '@/serves'
 import { encapsulationRes } from '@/utils/utils.js'
 import { ElMessage } from 'element-plus'
-import Waterfall from '../../components/Waterfall/waterfall.vue';
+import ArticleWaterfall from './articleWaterfall.vue'
 
-const listRef = ref([])
 const myInfoRef = ref({})
 
 const articleNumRef = ref('')
@@ -22,18 +21,10 @@ const labelNumRef = ref('')
 const blogInfoRef = ref({})
 
 onMounted(() => {
-  requestList()
   requestMyInfo()
   requestStatistics()
   requestBlogInfo()
 })
-
-const requestList = async () => {
-  const { code, data } = await articleListHttp({ start: 1, num: 99999 })
-  if (code === '200' && data?.length > 0) {
-    listRef.value = data
-  }
-}
 
 // 请求个人信息
 const requestMyInfo = async () => {
@@ -69,12 +60,12 @@ const requestStatistics = async () => {
 <template>
   <main class="article-main">
     <div class="waterfall">
-      <Waterfall :list="listRef" />
+      <ArticleWaterfall :fetchHttp="articleListHttp" />
     </div>
     <div class="author-info">
       <div class="author">
         <div class="bg"></div>
-        <img :src="myInfoRef.profile" alt="" class="avatar">
+        <img :src="myInfoRef?.profile" alt="" class="avatar">
         <div class="name">{{ myInfoRef.username }}</div>
         <div class="motto">{{ myInfoRef.motto }}</div>
         <div class="line"></div>
@@ -97,19 +88,19 @@ const requestStatistics = async () => {
         <ul>
           <li>
             <span class="directory">已运行时间</span>
-            <span class="sum">{{ blogInfoRef.runDate }}天</span>
+            <span class="sum">{{ blogInfoRef?.runDate || 0 }}天</span>
           </li>
           <li>
             <span class="directory">本站总字数</span>
-            <span class="sum">{{ blogInfoRef.charNum }}k</span>
+            <span class="sum">{{ blogInfoRef?.charNum || 0 }}k</span>
           </li>
           <li>
             <span class="directory">本站访客数</span>
-            <span class="sum">{{ blogInfoRef.visitNum }}</span>
+            <span class="sum">{{ blogInfoRef?.visitNum || 0 }}</span>
           </li>
           <li>
             <span class="directory">本站总访问量</span>
-            <span class="sum">{{ blogInfoRef.sumBrowse }}</span>
+            <span class="sum">{{ blogInfoRef?.sumBrowse || 0 }}</span>
           </li>
         </ul>
       </div>
@@ -121,20 +112,13 @@ const requestStatistics = async () => {
 .article-main {
   margin-top: 60px;
   display: flex;
+  justify-content: space-between;
 
   .waterfall {
-    height: 100%;
-    width: 80%;
-  }
-
-  @media screen and (max-width: 720px) {
-    .waterfall {
-      width: 100%;
-    }
+    width: 100%;
   }
 
   .author-info {
-    width: 20%;
 
     .author {
       width: 450px;

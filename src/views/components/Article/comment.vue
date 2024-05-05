@@ -45,7 +45,7 @@ const disposeItem = (item) => {
   return obj
 }
 
-const { articleId } = defineProps({ articleId: String })
+const { listHttp, addHttp, listParams, addParams } = defineProps({ listHttp: Function, addHttp: Function, listParams: {}, addParams: {} })
 
 const config = reactive({
   user: {
@@ -73,14 +73,12 @@ onMounted(() => {
 
 const requestList = async () => {
 
-  const res = await commentListHttp({ articleId, token: accountInfo.token })
+  const res = await listHttp({ token: accountInfo.token, ...listParams })
   if (res?.code === '200' && res?.data) {
     const list = res.data.map(item => {
-
       return disposeItem(item)
     })
     // commentList.value = list
-    console.log('list:', list);
     config.comments = list
   }
 }
@@ -89,16 +87,15 @@ const requestList = async () => {
 
 // 提交评论事件
 const submit = async ({ content, parentId, files, finish, reply }) => {
-  console.log('content:', content, parentId, files, finish, reply);
   if (content) {
     const params = {
       token: accountInfo.token,
-      articleId,
+
       content,
       commentId: parentId || '',
-      ip: window?.ipJson?.ip
+      ...addParams,
     }
-    const res = await addCommentHttp(params)
+    const res = await addHttp(params)
     if (res?.code === '200') {
       UToast({ message: '评论成功!', type: 'info' })
       finish()
@@ -124,22 +121,7 @@ const remove = async (comment) => {
 }
 
 config.comments = [
-  {
-    id: '1',
-    parentId: null,
-    uid: '1',
-    address: '来自上海',
-    content:
-      '缘生缘灭，缘起缘落，我在看别人的故事，别人何尝不是在看我的故事?别人在演绎人生，我又何尝不是在这场戏里?谁的眼神沧桑了谁?我的眼神，只是沧桑了自己[喝酒]',
-    likes: 2,
-    createTime: '1分钟前',
-    user: {
-      username: '落🤍尘',
-      avatar: 'https://static.juzicon.com/avatars/avatar-200602130320-HMR2.jpeg?x-oss-process=image/resize,w_100',
-      level: 6,
-      homeLink: '/1'
-    }
-  }
+
 ]
 
 </script>

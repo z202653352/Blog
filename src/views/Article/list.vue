@@ -3,7 +3,6 @@
 import { ref } from 'vue'
 import ArticleBanner from '@/views/components/Article/articleBanner.vue'
 import ArticleViewItem from '@/views/components/ArticleView/articleViewItem.vue'
-import 'vue-waterfall-plugin-next/dist/style.css'
 import ArticleMain from '@/views/components/Article/articleMain.vue'
 
 
@@ -18,6 +17,4 @@ import ArticleMain from '@/views/components/Article/articleMain.vue'
   </main>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

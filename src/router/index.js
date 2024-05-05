@@ -59,6 +59,12 @@ const router = createRouter({
           meta: { title: '个人信息' },
           component: () => import('../views/UserInfo/userInfo.vue')
         },
+        {
+          path: '/changePassword',
+          name: 'ChangePassword',
+          meta: { title: '修改密码' },
+          component: () => import('../views/ChangePassword/changePassword.vue')
+        },
       ]
     },
   ]

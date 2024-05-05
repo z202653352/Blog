@@ -5,10 +5,10 @@ import { getAccountInfo } from '@/utils/authority'
 let baseURL = '/api'
 // let { token } = getAccountInfo()
 // 这一步的目的是判断出当前是开发环境还是生成环境，方法不止一种，达到目的就行
-// if(process.env.NODE_ENV=='development'){
-//   baseURL=''
-// }else{
-//   baseURL=''
+// if (process.env.NODE_ENV == 'development') {
+//   baseURL = '/api'
+// } else {
+//   baseURL = process.env.VUE_APP_API_URL
 // }
 
 //

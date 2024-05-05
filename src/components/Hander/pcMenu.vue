@@ -39,7 +39,7 @@ const handleQuit = () => {
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item @click="router.push('/userInfo')">个人信息</el-dropdown-item>
-              <!-- <el-dropdown-item>修改密码</el-dropdown-item> -->
+              <el-dropdown-item @click="router.push('/changePassword')">修改密码</el-dropdown-item>
               <el-dropdown-item @click="handleQuit">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </template>

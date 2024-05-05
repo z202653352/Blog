@@ -80,7 +80,7 @@ const onCancel = () => {
     width: 100%;
     height: 400px;
     background: url(@/assets/links_bg.png) no-repeat;
-    background-size: contain;
+    background-size: 100% 100%;
     border-radius: 10px;
     margin-bottom: 40px;
     position: relative;

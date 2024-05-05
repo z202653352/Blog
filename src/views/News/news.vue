@@ -25,7 +25,14 @@ const requestTrendsList = async () => {
 </script>
 
 <template>
-  <times-line :data="dataRef" />
+  <main class="time-line">
+    <times-line :data="dataRef" />
+
+  </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+.time-line {
+  padding-top: 40px;
+}
+</style>

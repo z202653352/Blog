@@ -8,7 +8,13 @@ import Hander from '@/components/Hander/Hander.vue'
   <div class="bg"></div>
   <div class="main">
     <Hander class="hander" />
-    <RouterView />
+    <div class="content">
+      <RouterView />
+    </div>
+
+    <div class="ipc">
+      <a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2024085151号-1</a>
+    </div>
   </div>
 </template>
 
@@ -23,7 +29,7 @@ import Hander from '@/components/Hander/Hander.vue'
 
 .main {
   z-index: 3;
-  max-width: 80%;
+  max-width: 1500px;
   margin: 0 auto;
 
   .hander {
@@ -36,6 +42,21 @@ import Hander from '@/components/Hander/Hander.vue'
 
   @media screen and (max-width: 1200px) {
     max-width: 100%;
+  }
+
+  .content {
+    min-height: 83vh;
+  }
+
+  .ipc {
+    margin: 20px auto;
+    text-align: center;
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+
+    a {
+      color: #000;
+    }
   }
 }
 </style>

@@ -1,15 +1,19 @@
 <!--文章归档页面-->
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, nextTick } from 'vue';
 import { Search } from '@element-plus/icons-vue'
-import Waterfall from '../components/Waterfall/waterfall.vue';
 import { labelListHttp, lableDetailHttp } from '@/serves';
+import ArticleWaterfall from '@/views/components/Article/articleWaterfall.vue'
+
 const searchInputRef = ref('')
 const tabsValueRef = ref()
 const listRef = ref([])
 const tabsListRef = ref([])
 const titleRef = ref()
 const describeRef = ref()
+const subArticleCount = ref(0)
+
+const waterfallref = ref()
 
 onMounted(() => {
   requestTabs()
@@ -23,24 +27,23 @@ const requestTabs = async () => {
     tabsValueRef.value = data[0].articeId
     titleRef.value = data[0].title
     describeRef.value = data[0].description
-    requestList()
-  }
-}
-
-const requestList = async () => {
-  const { code, data } = await lableDetailHttp({ start: 1, num: 99999, lableId: tabsValueRef.value })
-  console.log('data', data);
-  if (code === '200' && data?.length > 0) {
-    listRef.value = data
+    subArticleCount.value = Number(data[0].subArticleCount)
+    console.log('waterfallref', waterfallref);
+    await nextTick()
+    waterfallref.value.reRender()
   }
 }
 
 
-const handleTabClick = (obj) => {
+
+
+const handleTabClick = async (obj) => {
   tabsValueRef.value = obj.articeId
   titleRef.value = obj.title
   describeRef.value = obj.description
-  requestList()
+  subArticleCount.value = Number(obj.subArticleCount)
+  await nextTick()
+  waterfallref.value.reRender()
 }
 </script>
 
@@ -48,18 +51,18 @@ const handleTabClick = (obj) => {
   <main>
     <div class="header">
       <div class="num">
-        共3篇
+        共{{ subArticleCount }}篇
       </div>
       <div class="search">
         <div class="title">{{ titleRef }}</div>
         <div class="describe">{{ describeRef }}</div>
         <div>
 
-          <el-input v-model="searchInputRef" class="search_input" placeholder="输入文章标题搜索">
+          <!-- <el-input v-model="searchInputRef" class="search_input" placeholder="输入文章标题搜索">
             <template #append>
               <el-button type="primary" :icon="Search" />
             </template>
-          </el-input>
+</el-input> -->
         </div>
       </div>
     </div>
@@ -76,7 +79,8 @@ const handleTabClick = (obj) => {
       </div>
     </div>
     <div class="waterfall">
-      <Waterfall :list="listRef" />
+      <ArticleWaterfall :key="tabsValueRef" :fetchHttp="lableDetailHttp" :params="{ lableId: tabsValueRef }"
+        ref="waterfallref" />
     </div>
   </main>
 </template>
