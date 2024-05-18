@@ -7,7 +7,6 @@ import { useRouter } from 'vue-router'
 
 const { item } = defineProps({ item: Object })
 const router = useRouter()
-
 const times = computed(() => {
   if (item.createdTime?.length > 0) return item.createdTime.split('-')
   return []
@@ -20,7 +19,7 @@ const handleToDetails = () => {
 
 <template>
   <div class="waterfall-item" @click="handleToDetails">
-    <img class="img" :src="item.previewPicture" alt="">
+    <img v-if="item.previewPicture" class="img" :src="item.previewPicture" alt="">
     <div class="main">
       <div class="left">
         <span class="month">{{ times[1] || '' }}</span>
@@ -52,6 +51,7 @@ const handleToDetails = () => {
 <style scoped lang="scss">
 .waterfall-item {
   width: 100%;
+  height: 100%;
 
   .img {
     width: 100%;

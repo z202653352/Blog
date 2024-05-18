@@ -47,7 +47,7 @@ const disposeItem = (item) => {
   return obj
 }
 
-const { articleId } = defineProps({ articleId: String })
+const { listHttp, addHttp, listParams, addParams } = defineProps({ listHttp: Function, addHttp: Function, listParams: {}, addParams: {} })
 
 const config = reactive({
   user: {
@@ -76,14 +76,12 @@ onMounted(() => {
 const requestList = async () => {
   console.log('accountInfo', accountInfo);
 
-  const res = await commentListHttp({ articleId, token: accountInfo?.token })
+  const res = await listHttp({ token: accountInfo?.token, ...listParams })
   if (res?.code === '200' && res?.data) {
     const list = res.data.map(item => {
-
       return disposeItem(item)
     })
     // commentList.value = list
-    console.log('list:', list);
     config.comments = list
   }
 }
@@ -92,17 +90,16 @@ const requestList = async () => {
 
 // 提交评论事件
 const submit = async ({ content, parentId, files, finish, reply }) => {
-  console.log('content:', content, parentId, files, finish, reply);
   if (content) {
     if (!accountInfo?.token) return ElMessage.warning('请登录账号')
     const params = {
       token: accountInfo.token,
-      articleId,
+
       content,
-      commentId: parentId || ''
-      // ip: window?.ipJson?.ip
+      commentId: parentId || '',
+      ...addParams,
     }
-    const res = await addCommentHttp(params)
+    const res = await addHttp(params)
     if (res?.code === '200') {
       UToast({ message: '评论成功!', type: 'info' })
       finish()

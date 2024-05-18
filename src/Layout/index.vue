@@ -8,7 +8,10 @@ import Hander from '@/components/Hander/Hander.vue'
   <div class="bg"></div>
   <div class="main">
     <Hander class="hander" />
-    <RouterView />
+    <div class="content">
+      <RouterView />
+    </div>
+
     <div class="ipc">
       <a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2024085151号-1</a>
     </div>
@@ -26,7 +29,7 @@ import Hander from '@/components/Hander/Hander.vue'
 
 .main {
   z-index: 3;
-  max-width: 80%;
+  max-width: 1500px;
   margin: 0 auto;
 
   .hander {
@@ -41,15 +44,21 @@ import Hander from '@/components/Hander/Hander.vue'
     max-width: 100%;
   }
 
-  .ipc {
+  <<<<<<< HEAD .ipc {
     margin: 0 auto;
-    text-align: center;
-    padding: 10px 0;
-    border-top: 1px solid #e8e8e8;
 
-    a {
-      color: #000;
+    =======.content {
+      min-height: 83vh;
     }
-  }
-}
-</style>
+
+    .ipc {
+      margin: 20px auto;
+      >>>>>>>28e2acecd9c30ddcde9dfc96dc85ea3e09ecc087 text-align: center;
+      padding: 10px 0;
+      border-top: 1px solid #e8e8e8;
+
+      a {
+        color: #000;
+      }
+    }
+  }</style>

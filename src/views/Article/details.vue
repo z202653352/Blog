@@ -2,36 +2,67 @@
 import commentaries from '@/assets/commentaries.png'
 import view from '@/assets/view.png'
 import { onMounted, ref, reactive } from 'vue'
-import { articleDetailHttp } from '@/serves'
+import { articleDetailHttp, commentListHttp, addCommentHttp, } from '@/serves'
 import { useRoute } from 'vue-router'
-import Catalog from '@/views/components/Catalog/catalog.vue'
 import Comment from '@/views/components/Article/comment.vue';
 
 const route = useRoute()
 
 const detailsDataRef = ref({})
+const titles = ref([])
+const previewRef = ref()
 
-const state = reactive({
-  text: '',
-  catalogList: []
-})
-const scrollElement = document.documentElement
 
 onMounted(() => {
   requestList()
+  initMdTitle()
 })
 
-const onGetCatalog = (list) => {
-  console.log('list', list)
-  state.catalogList = list
-}
+
 
 const requestList = async () => {
   const { id } = route.params
-  const ip = sessionStorage.getItem('blobIp')
-  const { code, data } = await articleDetailHttp({ articeId: id, ip })
+
+  const { code, data } = await articleDetailHttp({ articeId: id })
   if (code === '200' && data) {
     detailsDataRef.value = data
+  }
+}
+
+const initMdTitle = () => {
+  console.log('previewRef', previewRef.value.$el);
+  const anchors = previewRef.value.$el.querySelectorAll('h1,h2,h3,h4,h5,h6');
+  console.log('anchors', anchors);
+  const _titles = Array.from(anchors).filter((title) => !!title.innerText.trim());
+  console.log('_titles', _titles);
+  if (!_titles.length) {
+    titles.value = [];
+    return;
+  }
+
+
+  const hTags = Array.from(new Set(_titles.map((title) => title.tagName))).sort();
+  console.log('hTags', hTags);
+  titles.value = _titles.map((el) => ({
+    title: el.innerText,
+    lineIndex: el.getAttribute('data-v-md-line'),
+    indent: hTags.indexOf(el.tagName),
+  }));
+}
+
+const handleAnchorClick = (anchor) => {
+  const { preview } = this.$refs;
+  const { lineIndex } = anchor;
+
+  const heading = preview.$el.querySelector(`[data-v-md-line="${lineIndex}"]`);
+
+  if (heading) {
+    // 注意：如果你使用的是编辑组件的预览模式,则这里的方法名改为 previewScrollToTarget
+    preview.previewScrollToTarget({
+      target: heading,
+      scrollContainer: window,
+      top: 60,
+    });
   }
 }
 </script>
@@ -59,19 +90,20 @@ const requestList = async () => {
         </div>
         <el-divider />
         <div>
-          <!--detailsDataRef.content-->
-          <v-md-preview :text="detailsDataRef.content" :default-show-toc="true"></v-md-preview>
-
+          <v-md-preview ref="previewRef" :text="detailsDataRef.content"></v-md-preview>
+          <div v-for="anchor in titles" :style="{ padding: `10px 0 10px ${anchor.indent * 20}px` }"
+            @click="handleAnchorClick(anchor)">
+            <a style="cursor: pointer">{{ anchor.title }}</a>
+          </div>
         </div>
       </div>
-      <!-- preview-only-preview -->
-      <!-- <div class="directory">
-      <Catalog container=".vuepress-markdown-body" />
+      <div class="directory">
 
-    </div> -->
+      </div>
     </div>
     <el-divider />
-    <Comment :articleId="route.params.id" />
+    <Comment :listHttp="commentListHttp" :addHttp="addCommentHttp" :listParams="{ articleId: route.params.id }"
+      :addParams="{ articleId: route.params.id }" />
   </main>
 </template>
 
@@ -149,7 +181,9 @@ const requestList = async () => {
     height: 100%;
     // background: #028af1;
     position: fixed;
-    right: 0;
+    right: 212px;
+
+    top: 168px;
   }
 }
 </style>

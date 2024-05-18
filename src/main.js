@@ -12,6 +12,10 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import 'element-plus/theme-chalk/el-loading.css';
 import 'element-plus/theme-chalk/el-message.css';
 
+// 瀑布流
+import V3waterfall from 'v3-waterfall'
+import 'v3-waterfall/dist/style.css'
+
 // 预览组件以及样式
 import VMdPreview from '@kangc/v-md-editor/lib/preview';
 import '@kangc/v-md-editor/lib/style/preview.css';
@@ -42,5 +46,6 @@ app.use(createPinia().use(piniaPluginPersistedstate))
 app.use(router)
 // 引入v-md-editor预览组件
 app.use(VMdPreview);
+app.use(V3waterfall);
 app.use(UndrawUi)
 app.mount('#app')

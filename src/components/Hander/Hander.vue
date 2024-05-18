@@ -3,13 +3,19 @@
 import logo from '@/assets/logo.png'
 import MobileMenu from '@/components/Hander/mobileMenu.vue'
 import PcMenu from '@/components/Hander/pcMenu.vue'
+import { useRouter } from 'vue-router';
+const router = useRouter()
+
+const handleGo = () => {
+  router.push('/')
+}
 
 </script>
 
 <template>
   <div class="header">
     <div class="logo">
-      <img :src="logo" alt="">
+      <img :src="logo" alt="" @click="handleGo">
     </div>
     <div class="right">
       <!--PC显示的菜单-->
@@ -22,7 +28,6 @@ import PcMenu from '@/components/Hander/pcMenu.vue'
 
 <style scoped lang="scss">
 .header {
-
   width: 100%;
   padding: 10px 0;
   display: flex;

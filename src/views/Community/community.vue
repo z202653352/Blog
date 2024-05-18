@@ -12,6 +12,8 @@ import community_code from '@/assets/community/community_code.png'
 import community_backstage from '@/assets/community/community_backstage.png'
 import community_introduce from '@/assets/community/community_introduce.png'
 import { ref } from 'vue'
+import { addCommunityCommentHttp, gelCommunityCommentListHttp, } from '@/serves'
+import Comment from '@/views/components/Article/comment.vue';
 
 const infoRef = ref({
   username: '池鱼思故渊', //网名
@@ -19,7 +21,7 @@ const infoRef = ref({
   qq: '202653352', //联系QQ
   mail: '202653352@qq.com', //联系邮箱
   http: 'www.loong777.com', // 网站域名
-  onlineTime: '' // 上线时间
+  onlineTime: '2024-2-25' // 上线时间
 })
 
 
@@ -99,8 +101,7 @@ const infoRef = ref({
             <img :src="community_introduce" alt="">
             <div class="a2-item-right">
               <div class="title">网站介绍</div>
-              <div class="text">本站搭建主要目的于IT技术交流，日常生活记录。本站支持QQ、
-                GitHub、Google进行快速登录。
+              <div class="text">本站搭建主要目的于IT技术交流，日常生活记录。
               </div>
             </div>
           </div>
@@ -108,6 +109,7 @@ const infoRef = ref({
         </div>
       </div>
     </div>
+    <Comment :listHttp="gelCommunityCommentListHttp" :addHttp="addCommunityCommentHttp" />
   </div>
 </template>
 
@@ -229,7 +231,6 @@ const infoRef = ref({
           text-align: left;
           font-style: normal;
           text-transform: none;
-
           margin-top: 80px;
         }
       }
@@ -281,7 +282,8 @@ const infoRef = ref({
       }
     }
 
-    .a1, .a2 {
+    .a1,
+    .a2 {
       img {
         width: 56px;
         height: 56px;
@@ -307,6 +309,7 @@ const infoRef = ref({
         text-align: left;
         font-style: normal;
         text-transform: none;
+        line-break: anywhere;
       }
     }
 

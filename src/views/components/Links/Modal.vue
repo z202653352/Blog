@@ -127,6 +127,10 @@ defineExpose({
     box-shadow: none;
   }
 
+  :deep(.el-dialog .el-dialog__header) {
+    border-bottom: none;
+  }
+
   .content {
     margin-top: 160px;
     display: flex;

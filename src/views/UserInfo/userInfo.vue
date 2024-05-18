@@ -1,3 +1,4 @@
+<!-- 个人信息 -->
 <script setup>
 import { useRouter } from 'vue-router'
 import { reactive, ref, onMounted, watch } from 'vue'
@@ -74,7 +75,7 @@ const handleOk = async () => {
         <el-form-item label="头像" prop="profile">
           <el-upload class="avatar-uploader" action="/api/other/file/upload" :show-file-list="false"
             :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload" :data="fileData">
-            <img v-if="userInfoForm.profile" :src="userInfoForm.profile" class="avatar" />
+            <img v-if="userInfoForm?.profile" :src="userInfoForm?.profile" class="avatar" />
             <el-icon v-else class="avatar-uploader-icon">
               <Plus />
             </el-icon>

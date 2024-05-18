@@ -42,7 +42,6 @@ const validateEmail = (rule, value, callback) => {
 
 // 二次密码校验
 const validateNewPassword = (rule, value, callback) => {
-  console.log('value', value, forgetForm.newPassword);
   if (value != forgetForm.newPwd) {
     callback(new Error('两次输入密码不一致'));
   } else {
@@ -61,7 +60,7 @@ const rules = reactive({
     { required: true, message: '请输入密码', trigger: 'blur' },
   ],
   newPassword: [
-    { required: true, message: '请输入确定密码', trigger: 'blur' },
+    { required: true, message: '请输入确认密码', trigger: 'blur' },
     { validator: validateNewPassword, trigger: 'blur' }
 
   ],
@@ -127,7 +126,7 @@ const handleSendEmail = async (email) => {
           <el-form-item label="新密码" prop="newPwd">
             <el-input type="password" show-password v-model="forgetForm.newPwd" placeholder="请输入新密码" />
           </el-form-item>
-          <el-form-item label="二次密码" prop="newPassword">
+          <el-form-item label="确认密码" prop="newPassword">
             <el-input type="password" show-password v-model="forgetForm.newPassword" placeholder="请输入新密码" />
           </el-form-item>
           <el-form-item>

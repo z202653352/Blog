@@ -1,14 +1,14 @@
 <!--时间线-->
 <script setup>
-import {defineProps} from 'vue'
-const { data } = defineProps({data:Array})
+import { defineProps } from 'vue'
+const { data } = defineProps({ data: Array })
 </script>
 
 <template>
   <ul class="time-line">
-    <li v-for="(item,index) in data" :key="item.id"  :class="[index % 2 === 0 ? 'item-left' : 'item-right', 'item']">
+    <li v-for="(item, index) in data" :key="item.id" :class="[index % 2 === 0 ? 'item-left' : 'item-right', 'item']">
       <div class="line"></div>
-      <div class="time">{{item.releaseTime}}</div>
+      <div class="time">{{ item.releaseTime }}</div>
       <div class="text" v-html="item.content"></div>
     </li>
   </ul>
@@ -92,9 +92,10 @@ const { data } = defineProps({data:Array})
     justify-content: flex-end;
     transform: translateX(50%);
 
-    .time{
+    .time {
       right: 0;
     }
+
     .line {
       left: 0;
     }
@@ -102,28 +103,32 @@ const { data } = defineProps({data:Array})
 
   .item-left {
     transform: translateX(-50%);
-    .time{
+
+    .time {
       left: 0;
     }
+
     .line {
       right: -2px;
     }
   }
 
   @media screen and (max-width: 720px) {
-      .item {
-        .text {
-          font-size: 14px;
-        }
-
+    .item {
+      .text {
+        font-size: 14px;
       }
-    .item-right{
-      .text{
+
+    }
+
+    .item-right {
+      .text {
         padding-left: 20px;
       }
     }
-    .item-left{
-      .text{
+
+    .item-left {
+      .text {
         padding-right: 20px;
       }
     }
