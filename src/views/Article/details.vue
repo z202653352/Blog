@@ -46,8 +46,8 @@ const requestList = async () => {
           <div class="user">
             <el-avatar :size="50" :src="detailsDataRef.authorProfile" />
             <div class="name_time">
-              <div class="name">{{ detailsDataRef.authorName }}</div>
-              <div class="time">{{ detailsDataRef.createdTime }}</div>
+              <div class="name">{{ detailsDataRef.authorName || 0 }}</div>
+              <div class="time">{{ detailsDataRef.createdTime || 0 }}</div>
             </div>
           </div>
           <div class="statistics">

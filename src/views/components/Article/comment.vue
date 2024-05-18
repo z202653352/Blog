@@ -1,6 +1,6 @@
 <!--
    评论
-   插件地址:https://undraw.gitee.io/undraw-ui/components/comment.html#%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B
+   插件地址:https://readpage.github.io/undraw-ui/components/comment.html
 -->
 <script setup>
 
@@ -14,6 +14,8 @@ import { getAccountInfo } from '@/utils/authority'
 import emoji from '@/utils/emoji'
 import { reactive } from 'vue'
 import { UToast, createObjectURL } from 'undraw-ui'
+
+import userAvatar from '@/assets/user.png'
 
 const userInfoStore = useUserInfoStore()
 const accountInfo = getAccountInfo()
@@ -50,8 +52,8 @@ const { articleId } = defineProps({ articleId: String })
 const config = reactive({
   user: {
     id: 1,
-    username: userInfo.userName,
-    avatar: userInfo?.profile,
+    username: userInfo?.userName || userAvatar,
+    avatar: userInfo?.profile || userAvatar,
     // 评论id数组 建议:存储方式用户uid和评论id组成关系,根据用户uid来获取对应点赞评论id,然后加入到数组中返回
     // likeIds: [1, 2, 3]
   },
@@ -72,8 +74,9 @@ onMounted(() => {
 })
 
 const requestList = async () => {
+  console.log('accountInfo', accountInfo);
 
-  const res = await commentListHttp({ articleId, token: accountInfo.token })
+  const res = await commentListHttp({ articleId, token: accountInfo?.token })
   if (res?.code === '200' && res?.data) {
     const list = res.data.map(item => {
 
@@ -91,12 +94,13 @@ const requestList = async () => {
 const submit = async ({ content, parentId, files, finish, reply }) => {
   console.log('content:', content, parentId, files, finish, reply);
   if (content) {
+    if (!accountInfo?.token) return ElMessage.warning('请登录账号')
     const params = {
       token: accountInfo.token,
       articleId,
       content,
-      commentId: parentId || '',
-      ip: window?.ipJson?.ip
+      commentId: parentId || ''
+      // ip: window?.ipJson?.ip
     }
     const res = await addCommentHttp(params)
     if (res?.code === '200') {
@@ -124,22 +128,7 @@ const remove = async (comment) => {
 }
 
 config.comments = [
-  {
-    id: '1',
-    parentId: null,
-    uid: '1',
-    address: '来自上海',
-    content:
-      '缘生缘灭，缘起缘落，我在看别人的故事，别人何尝不是在看我的故事?别人在演绎人生，我又何尝不是在这场戏里?谁的眼神沧桑了谁?我的眼神，只是沧桑了自己[喝酒]',
-    likes: 2,
-    createTime: '1分钟前',
-    user: {
-      username: '落🤍尘',
-      avatar: 'https://static.juzicon.com/avatars/avatar-200602130320-HMR2.jpeg?x-oss-process=image/resize,w_100',
-      level: 6,
-      homeLink: '/1'
-    }
-  }
+
 ]
 
 </script>
@@ -149,7 +138,11 @@ config.comments = [
     <u-comment :config="config" @submit="submit">
       <!-- <template>导航栏卡槽</template> -->
       <!-- <template #header>头部卡槽</template> -->
-      <!-- <template #info>信息卡槽</template> -->
+      <template #info>
+        <div class="admin">
+          管理员{{ info }}
+        </div>
+      </template>
       <!-- <template #card>用户信息卡片卡槽</template> -->
       <!-- <template #func>功能区域卡槽</template> -->
       <template #operate="scope">
@@ -159,4 +152,10 @@ config.comments = [
   </div>
 </template>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.admin {
+  margin-left: 10px;
+  font-size: 12px;
+  color: $color-primary
+}
+</style>

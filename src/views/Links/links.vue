@@ -28,6 +28,14 @@ const handleAddLink = () => {
 
 const onSubmit = async (form) => {
   console.log('submit!', form)
+  // 判断对象是否有空的值
+  for (const key in form) {
+    if (!form[key]) {
+      ElMessage.error('内容不能为空')
+      return false
+    }
+  }
+
   const { code, data, msg } = await applyFriendLinkHttp(form)
   if (code === '200') {
     ElMessage.success('申请成功，请等待管理员审核')

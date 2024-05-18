@@ -9,6 +9,9 @@ import Hander from '@/components/Hander/Hander.vue'
   <div class="main">
     <Hander class="hander" />
     <RouterView />
+    <div class="ipc">
+      <a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2024085151号-1</a>
+    </div>
   </div>
 </template>
 
@@ -36,6 +39,17 @@ import Hander from '@/components/Hander/Hander.vue'
 
   @media screen and (max-width: 1200px) {
     max-width: 100%;
+  }
+
+  .ipc {
+    margin: 0 auto;
+    text-align: center;
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+
+    a {
+      color: #000;
+    }
   }
 }
 </style>

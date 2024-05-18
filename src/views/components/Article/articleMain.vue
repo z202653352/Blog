@@ -38,7 +38,7 @@ const requestList = async () => {
 // 请求个人信息
 const requestMyInfo = async () => {
   try {
-    const data = encapsulationRes(await myInfoHttp({ token: 'efce3da4-4bd5-40b9-9cc9-23ef9740ea59' }))
+    const data = encapsulationRes(await myInfoHttp())
     myInfoRef.value = data
   } catch (e) {
     ElMessage.error(e)

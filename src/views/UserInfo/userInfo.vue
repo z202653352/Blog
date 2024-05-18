@@ -14,7 +14,6 @@ const userInfoForm = reactive({
   loginName: '',
   qq: '',
   username: '',
-  pwd: '',
 })
 const userInfoRef = ref()
 const fileData = ref({
@@ -34,7 +33,6 @@ const getUserInfo = async () => {
   userInfoForm.qq = userInfo?.email
   userInfoForm.username = userInfo?.username
   userInfoForm.profile = userInfo?.profile
-  userInfoForm.pwd = userInfo?.password
 }
 
 const handleAvatarSuccess = (response) => {
@@ -56,7 +54,6 @@ const handleOk = async () => {
     username: userInfoForm.username,
     profile: userInfoForm.profile,
     token: getAccountInfo()?.token,
-    pwd: userInfoForm?.pwd || ''
   }
   const res = await editUserInfoHttp(params)
   if (res?.code === '200') {
@@ -92,9 +89,7 @@ const handleOk = async () => {
         <el-form-item label="用户名" prop="username">
           <el-input v-model="userInfoForm.username" placeholder="请输入用户名" />
         </el-form-item>
-        <el-form-item label="新密码" prop="pwd">
-          <el-input type="password" show-password v-model="userInfoForm.pwd" placeholder="请输入新密码" />
-        </el-form-item>
+
         <el-form-item>
           <div class="btns">
             <el-button type="primary" class="register-btn" @click="handleOk(userInfoRef)">确定</el-button>
