@@ -2,7 +2,7 @@ import axios from 'axios' // 引入
 import { ElMessage } from 'element-plus'
 import { getAccountInfo } from '@/utils/authority'
 
-let baseURL = ''
+let baseURL = '/api'
 // let { token } = getAccountInfo()
 // 这一步的目的是判断出当前是开发环境还是生成环境，方法不止一种，达到目的就行
 // if (process.env.NODE_ENV == 'development') {

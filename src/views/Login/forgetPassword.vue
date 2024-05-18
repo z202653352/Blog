@@ -20,6 +20,9 @@ const forgetForm = reactive({
 const ruleFormRef = ref()
 const sendFlag = ref(false)
 
+const sendValue = ref('发送')
+const messageCodeVis = ref(false)
+
 // 邮箱校验
 const validateEmail = (rule, value, callback) => {
   var emailRegExp = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
@@ -88,16 +91,35 @@ const handleForget = async (formEl) => {
 
 // 发送验证码
 const handleSendEmail = async (email) => {
+  console.log('email', email);
   if (!email) {
     ElMessage.error('请输入邮箱')
     return
   }
-  const res = await sendCoedHttp({ qq: email, scene: 1 })
-  if (res?.code === '200') {
-    ElMessage.success('发送成功')
-  } else {
-    ElMessage.error(res?.msg || '发送失败')
-  }
+  startCountdown(60)
+  // const res = await sendCoedHttp({ qq: email, scene: 1 })
+  // if (res?.code === '200') {
+  //   ElMessage.success('发送成功')
+  //   startCountdown(60)
+  // } else {
+  //   ElMessage.error(res?.msg || '发送失败')
+  // }
+}
+
+/* 倒计时函数 */
+const startCountdown = (value) => {
+  console.log('触发了');
+  sendValue.value = value
+  messageCodeVis.value = true
+  const intervalId = setInterval(() => {
+    if (sendValue.value > 0) {
+      sendValue.value--;
+    } else {
+      clearInterval(intervalId)
+      messageCodeVis.value = false
+      sendValue.value = '发送'
+    }
+  }, 1000)
 }
 </script>
 
@@ -119,7 +141,7 @@ const handleSendEmail = async (email) => {
               <template #append>
                 <el-button type="primary"
                   :style="{ 'background-color': sendFlag ? '#409EFF' : '#f5f7fa', 'color': sendFlag ? '#fff' : '#909399' }"
-                  @click="handleSendEmail(forgetForm.loginName)">发送</el-button>
+                  :disabled="messageCodeVis" @click="handleSendEmail(forgetForm.loginName)">{{ sendValue }}</el-button>
               </template>
             </el-input>
           </el-form-item>

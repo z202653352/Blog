@@ -29,6 +29,7 @@ const disposeItem = (item) => {
     address: item.ipAddress,
     content: item.content,
     createTime: item.createdTime,
+    myComment: item.myComment,
     user: {
       username: item.commentClientName,
       avatar: item.commentClientProfile,
@@ -136,9 +137,9 @@ config.comments = [
       <!-- <template>导航栏卡槽</template> -->
       <!-- <template #header>头部卡槽</template> -->
       <template #info>
-        <div class="admin">
+        <!-- <div class="admin">
           管理员{{ info }}
-        </div>
+        </div> -->
       </template>
       <!-- <template #card>用户信息卡片卡槽</template> -->
       <!-- <template #func>功能区域卡槽</template> -->

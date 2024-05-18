@@ -38,7 +38,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://hhh.loong777.com/',	// 实际请求地址
+        target: 'https://www.loong777.com/',	// 实际请求地址
         changeOrigin: true, // 是否跨域
       },
       '/api2': {

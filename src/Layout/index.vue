@@ -44,21 +44,22 @@ import Hander from '@/components/Hander/Hander.vue'
     max-width: 100%;
   }
 
-  <<<<<<< HEAD .ipc {
-    margin: 0 auto;
 
-    =======.content {
-      min-height: 83vh;
+  margin: 0 auto;
+
+  .content {
+    min-height: 83vh;
+  }
+
+  .ipc {
+    margin: 20px auto;
+    text-align: center;
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+
+    a {
+      color: #000;
     }
-
-    .ipc {
-      margin: 20px auto;
-      >>>>>>>28e2acecd9c30ddcde9dfc96dc85ea3e09ecc087 text-align: center;
-      padding: 10px 0;
-      border-top: 1px solid #e8e8e8;
-
-      a {
-        color: #000;
-      }
-    }
-  }</style>
+  }
+}
+</style>

@@ -12,7 +12,7 @@
     <template #dropdown>
       <el-dropdown-menu>
         <!-- <el-dropdown-item command="report">举报</el-dropdown-item> -->
-        <el-dropdown-item command="remove">删除</el-dropdown-item>
+        <el-dropdown-item :disabled="!props.comment.myComment" command="remove">删除</el-dropdown-item>
         <el-dropdown-item divided command="copy">复制</el-dropdown-item>
       </el-dropdown-menu>
     </template>
@@ -25,6 +25,7 @@ import { CommentApi, ElDropdown, ElDropdownItem, ElDropdownMenu, UToast } from '
 
 
 const props = defineProps({ comment: {} })
+console.log('props', props);
 
 const emit = defineEmits(['remove'])
 

@@ -100,6 +100,7 @@ const handleLogin = async (formEl) => {
           <el-form-item>
             <el-button type="primary" class="login-btn" @click="handleLogin(ruleFormRef)">登录</el-button>
             <el-button class="login-btn" @click="router.push('/register')">注册</el-button>
+            <el-button class="login-btn" @click="router.go(-1)">返回</el-button>
           </el-form-item>
         </el-form>
       </div>
